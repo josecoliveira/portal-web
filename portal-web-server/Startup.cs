@@ -11,6 +11,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using PortalWebServer.Services;
+using PortalWebServer.Services.Interfaces;
+using PortalWebServer.Repositories;
+using PortalWebServer.Repositories.Interfaces;
 
 namespace PortalWebServer
 {
@@ -26,6 +33,9 @@ namespace PortalWebServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITokenService, TokenService>();
             services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen(c =>

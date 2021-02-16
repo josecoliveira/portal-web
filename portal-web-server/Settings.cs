@@ -1,4 +1,4 @@
-namespace portal_web_server
+namespace PortalWebServer
 {
     public class Settings
     {

@@ -2,14 +2,15 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Shop.Models;
+using PortalWebServer.Models;
 using Microsoft.IdentityModel.Tokens;
+using PortalWebServer.Services.Interfaces;
 
-namespace Shop.Services
+namespace PortalWebServer.Services
 {
-    public static class TokenService
+    public class TokenService : ITokenService
     {
-        public static string GenerateToken(User user)
+        public string GenerateToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(Settings.Secret);
