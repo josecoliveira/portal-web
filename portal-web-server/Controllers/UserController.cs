@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,16 +31,15 @@ namespace PortalWebServer
             return await Task.FromResult("Test");
         }
         
-
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
-        public async Task<ActionResult<dynamic>> Authenticate([FromBody]User model)
+        public ActionResult<dynamic> Authenticate([FromBody]User model)
         {
-            var user = _userService.Get(model.Username, model.Password);
+            var user = _userService.Get(model.Email, model.Password);
 
             if (user == null)
-                return NotFound(new { message = "Usuário ou senha inválidos" });
+                return NotFound(new { message = "Invalid user or password" });
 
             var token = _tokenService.GenerateToken(user);
             user.Password = "";
@@ -49,5 +49,20 @@ namespace PortalWebServer
                 token = token
             };
         }
-    }
+
+        [HttpGet]
+        [Route("clientes")]
+        [Authorize(Roles = "Colaborador")]
+        public ActionResult<List<User>> GetUsersByIdColaborador()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return _userService.GetUsersByIdColaborador(userId);
+        }
+
+        [HttpGet]
+        [Route("authenticated")]
+        [Authorize]
+        public string Authenticated() => String.Format("Autenticado - {0}", User.Identity.Name);
+        
+        }
 }

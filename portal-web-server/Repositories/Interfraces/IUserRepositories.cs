@@ -5,7 +5,8 @@ namespace PortalWebServer.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        User Get(string username, string password);
-        List<User> GetAllUsers();
+        List<User> Get();
+        User Get(string email, string password);
+        List<User> GetUsersByIdColaborador(string idColaborador);
     }
 }

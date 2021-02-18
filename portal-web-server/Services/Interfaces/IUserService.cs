@@ -5,7 +5,8 @@ namespace PortalWebServer.Services.Interfaces
 {
     public interface IUserService
     {
-        List<User> GetAllUsers();
-        User Get(string username, string password);
+        List<User> Get();
+        User Get(string email, string password);
+        List<User> GetUsersByIdColaborador(string idColaborador);
     }
 }

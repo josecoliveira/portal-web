@@ -14,16 +14,19 @@ namespace PortalWebServer.Services
             _userRepository = userRepository;
         }
 
-        public List<User> GetAllUsers()
+        public List<User> Get()
         {
-            List<User> users = _userRepository.GetAllUsers();
-            return users;
+            return _userRepository.Get();
         }
 
-        public User Get(string username, string passoword)
+        public User Get(string email, string password)
         {
-            User user = _userRepository.Get(username, passoword);
-            return user;
+            return _userRepository.Get(email, password);
+        }
+
+        public List<User> GetUsersByIdColaborador(string idColaborador)
+        {
+            return _userRepository.GetUsersByIdColaborador(idColaborador);
         }
     }
 }

@@ -6,12 +6,16 @@ services:
       image: mongo
       restart: always
       environment:
-        MONGO_INITDB_ROOT_USERNAME: root
-        MONGO_INITDB_ROOT_PASSWORD: example
+        # MONGO_INITDB_ROOT_USERNAME: root
+        # MONGO_INITDB_ROOT_PASSWORD: example
+        MONGO_INITDB_DATABASE: portalweb
+        # MONGO_NON_ROOT_USERNAME: portalweb
+        # MONGO_NON_ROOT_PASSWORD: example
       ports:
         - 27017:27017
       volumes:
-        - ./portal-web-db/data/db:/data/db
+        # - ./portal-web-db/data/db:/data/db
+        - ./portal-web-db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
 
   mongo-express:
       image: mongo-express

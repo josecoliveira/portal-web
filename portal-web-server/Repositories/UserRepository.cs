@@ -2,25 +2,36 @@ using System.Collections.Generic;
 using System.Linq;
 using PortalWebServer.Models;
 using PortalWebServer.Repositories.Interfaces;
+using MongoDB.Driver;
+using PortalWebServer.Models.Interfaces;
 
 namespace PortalWebServer.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public User Get(string username, string password)
+        private readonly IMongoCollection<User> _users;
+
+        public UserRepository(IDatabaseSettings settings)
         {
-            var users = new List<User>();
-            users.Add(new User { Id = 1, Username = "batman", Password = "batman", Role = "manager" });
-            users.Add(new User { Id = 2, Username = "robin", Password = "robin", Role = "employee" });
-            return users.Where(x => x.Username.ToLower() == username.ToLower() && x.Password == x.Password).FirstOrDefault();
+            var client = new MongoClient(settings.ConnectionString);
+            var database = client.GetDatabase(settings.DatabaseName);
+
+            _users = database.GetCollection<User>(settings.UsersCollectionName);
         }
 
-        public List<User> GetAllUsers()
+        public List<User> Get()
         {
-            var users = new List<User>();
-            users.Add(new User { Id = 1, Username = "batman", Password = "batman", Role = "manager" });
-            users.Add(new User { Id = 2, Username = "robin", Password = "robin", Role = "employee" });
-            return users;
+            return  _users.Find(book => true).ToList();
+        }
+
+        public User Get(string email, string password)
+        {
+            return _users.Find(user => user.Email == email && user.Password == password).FirstOrDefault();
+        }
+
+        public List<User> GetUsersByIdColaborador(string idColaborador)
+        {
+            return _users.Find(user => user.IdColaborador == idColaborador).ToList();
         }
     }
 }

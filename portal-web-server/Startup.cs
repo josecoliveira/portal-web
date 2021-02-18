@@ -18,6 +18,9 @@ using PortalWebServer.Services;
 using PortalWebServer.Services.Interfaces;
 using PortalWebServer.Repositories;
 using PortalWebServer.Repositories.Interfaces;
+using Microsoft.Extensions.Options;
+using PortalWebServer.Models;
+using PortalWebServer.Models.Interfaces;
 
 namespace PortalWebServer
 {
@@ -36,6 +39,13 @@ namespace PortalWebServer
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITokenService, TokenService>();
+
+            services.Configure<DatabaseSettings>(
+                Configuration.GetSection(nameof(DatabaseSettings)));
+
+            services.AddSingleton<IDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
+
             services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -82,6 +92,7 @@ namespace PortalWebServer
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
