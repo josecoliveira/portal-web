@@ -8,7 +8,7 @@ import { User } from '@app/_models';
 export class UserService {
   constructor(private http: HttpClient) { }
 
-  getAll() {
-    return this.http.get<User[]>(`${environment.apiUrl}/users`);
-  }
+  // getAll() {
+  //   return this.http.get<User[]>(`${environment.apiUrl}/api/user`);
+  // }
 }
