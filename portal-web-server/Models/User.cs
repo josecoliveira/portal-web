@@ -25,5 +25,7 @@ namespace PortalWebServer.Models
         [BsonRepresentation(BsonType.ObjectId)]
         [BsonElement("idColaborador")]
         public string IdColaborador { get; set; }
+
+        public string Token { get; set; }
     }
 }

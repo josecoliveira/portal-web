@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using PortalWebServer.Models;
 using PortalWebServer.Repositories;
@@ -11,7 +12,7 @@ using PortalWebServer.Services.Interfaces;
 
 namespace PortalWebServer
 {
-    [Route("user")]
+    [Route("api/user")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -34,6 +35,7 @@ namespace PortalWebServer
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
+        [EnableCors("Policy")]
         public ActionResult<dynamic> Authenticate([FromBody]User model)
         {
             var user = _userService.Get(model.Email, model.Password);
@@ -43,11 +45,8 @@ namespace PortalWebServer
 
             var token = _tokenService.GenerateToken(user);
             user.Password = "";
-            return new
-            {
-                user = user,
-                token = token
-            };
+            user.Token = token;
+            return user;
         }
 
         [HttpGet]

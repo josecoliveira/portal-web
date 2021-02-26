@@ -46,7 +46,17 @@ namespace PortalWebServer
             services.AddSingleton<IDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
 
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Policy",
+                    builder =>
+                    {
+                        builder
+                            .AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -87,10 +97,7 @@ namespace PortalWebServer
 
             app.UseRouting();
 
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
+            app.UseCors();
 
             app.UseAuthentication();
             app.UseAuthorization();
