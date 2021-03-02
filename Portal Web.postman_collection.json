@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "a6be76a4-2161-41d9-9c94-7f69beacf391",
+		"name": "Portal Web",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login (José)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"jose@gmail.com\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login (Rafael)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"rafael@gmail.com\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar colaborador",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Mário\",\n    \"email\": \"mario@mgmail.com\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/user/colaborador",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"user",
+						"colaborador"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar cliente",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ikpvc8OpIiwicm9sZSI6IkNvbGFib3JhZG9yIiwibmFtZWlkIjoiNjAyZWQyMThhY2Q1MDQyOWRlZWFiNmEyIiwibmJmIjoxNjE0NzAxNzMwLCJleHAiOjE2MTQ3MDg5MzAsImlhdCI6MTYxNDcwMTczMH0._bGLQ4N3aj3QfC9DfmmXEHbRTdXAXzD9TCt6pyGFofs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Jeroen\",\n    \"email\": \"jeroen@mgmail.com\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/user/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"user",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clientes de um colaborador (José)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ikpvc8OpIiwicm9sZSI6IkNvbGFib3JhZG9yIiwibmFtZWlkIjoiNjAyZWQyMThhY2Q1MDQyOWRlZWFiNmEyIiwibmJmIjoxNjE0NzAxNzMwLCJleHAiOjE2MTQ3MDg5MzAsImlhdCI6MTYxNDcwMTczMH0._bGLQ4N3aj3QfC9DfmmXEHbRTdXAXzD9TCt6pyGFofs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/user/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"user",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clientes de um colaborador (Rafael)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IlJhZmFlbCIsInJvbGUiOiJDb2xhYm9yYWRvciIsIm5hbWVpZCI6IjYwMmVkMjE4YWNkNTA0MjlkZWVhYjZhNSIsIm5iZiI6MTYxNDcwMTY1MiwiZXhwIjoxNjE0NzA4ODUyLCJpYXQiOjE2MTQ3MDE2NTJ9.Mk8E3LKINc1YSWI4uQ60k4pfxnoKTlWZozvn8nh64hI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/user/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"user",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

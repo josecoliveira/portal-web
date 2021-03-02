@@ -55,3 +55,23 @@ Além disto, preciso entender como funciona a biblioteca de http do Angular. No 
 Nunca havia trabalhado com Docker e .NET 5 antes. Tive alguns problemas para fazer funcionar na minha máquina. Minha máquina não é boa o suficiente para rodar Docker e Visual Studio 2019 ao mesmo tempo no Windows 10. Então foi necessário usar o meu Arch Linux usual. Havia tentado usar Windows 10 porque os tutoriais se aproveitam bastante das funcionalidades do Visual Studio, mas pois vi que o CLI do .NET é suficiente.
 
 Outro problema que eu tive foi ao criar o container para o servidor. Depois de pedir ajuda para colegas que já trabalharam com Docker antes, vi que na rede entre containers do Docker, uma container é identificado pelo nome na configuração do `docker-compose`, portanto, precisaria colocar `mongo:27017` como endereço do bando nas variaveis de produção do servidor.
+
+## API
+
+Segue a documentação da API. Exemplos de requisições estão disponíveis em `Portal Web.postman_collection.json`.
+
+### POST /login
+
+Realiza login de um usuário. Body é um JSON com os campos `email` e `password`.
+
+### POST /colaborador
+
+Realiza o cadastro de um usuário Colaborador. Body é um JSON com `name`, `email`, `password`.
+
+### GET /cliente
+
+Com usuário colaborador logado, retorna todos os clientes de um usuário.
+
+### POST /cliente
+
+Com usuário colaborador logado, realiza o cadastro de um usuário Cliente. Body é um JSON com `name`, `email` e `password`.
