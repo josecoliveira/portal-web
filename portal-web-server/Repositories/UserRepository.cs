@@ -15,13 +15,13 @@ namespace PortalWebServer.Repositories
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
-
             _users = database.GetCollection<User>(settings.UsersCollectionName);
         }
 
+
         public List<User> Get()
         {
-            return  _users.Find(book => true).ToList();
+            return  _users.Find(user => true).ToList();
         }
 
         public User Get(string email, string password)
@@ -32,6 +32,15 @@ namespace PortalWebServer.Repositories
         public List<User> GetUsersByIdColaborador(string idColaborador)
         {
             return _users.Find(user => user.IdColaborador == idColaborador).ToList();
+        }
+
+        public void CreateUser(User user) {
+            _users.InsertOne(user);
+        }
+
+        public User GetUserByEmail(string email)
+        {
+            return _users.Find(user => user.Email == email).First();
         }
     }
 }

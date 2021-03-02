@@ -28,5 +28,13 @@ namespace PortalWebServer.Services
         {
             return _userRepository.GetUsersByIdColaborador(idColaborador);
         }
+
+        public void CreateUser(User user) {
+            _userRepository.CreateUser(user);
+        }
+
+        public User GetUserByEmail(string email) {
+            return _userRepository.GetUserByEmail(email);
+        }
     }
 }

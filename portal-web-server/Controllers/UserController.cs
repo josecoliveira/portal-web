@@ -23,14 +23,6 @@ namespace PortalWebServer
             _userService = userService;
             _tokenService = tokenService;
         }
-
-        [HttpGet]
-        [Route("test")]
-        [AllowAnonymous]
-        public async Task<ActionResult<dynamic>> GetAllUsers()
-        {
-            return await Task.FromResult("Test");
-        }
         
         [HttpPost]
         [Route("login")]
@@ -39,29 +31,55 @@ namespace PortalWebServer
         public ActionResult<dynamic> Authenticate([FromBody]User model)
         {
             var user = _userService.Get(model.Email, model.Password);
-
             if (user == null)
+            {
                 return NotFound(new { message = "Invalid user or password" });
-
+            }
             var token = _tokenService.GenerateToken(user);
             user.Password = "";
             user.Token = token;
             return user;
         }
+        
+        [HttpPost]
+        [Route("colaborador")]
+        [AllowAnonymous]
+        [EnableCors("Policy")]
+        public IActionResult CreateColaboradorUser([FromBody]User user)
+        {
+            user.Role = "Colaborador";
+            _userService.CreateUser(user);
+            return Ok();
+        }
 
         [HttpGet]
-        [Route("clientes")]
+        [Route("cliente")]
         [Authorize(Roles = "Colaborador")]
+        [EnableCors("Policy")]
         public ActionResult<List<User>> GetUsersByIdColaborador()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return _userService.GetUsersByIdColaborador(userId);
         }
 
+        [HttpPost]
+        [Route("cliente")]
+        [Authorize(Roles = "Colaborador")]
+        [EnableCors("Policy")]
+        public IActionResult CreateClienteUser([FromBody]User user)
+        {
+            user.IdColaborador = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            user.Role = "Cliente";
+            _userService.CreateUser(user);
+            return Ok();
+        }
+
+
         [HttpGet]
         [Route("authenticated")]
         [Authorize]
+        [EnableCors("Policy")]
         public string Authenticated() => String.Format("Autenticado - {0}", User.Identity.Name);
         
-        }
+    }
 }
